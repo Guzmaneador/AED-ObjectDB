@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<jpa:entity-mappings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:java="http://jcp.org/en/jsr/detail?id=270" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:jpa="http://java.sun.com/xml/ns/persistence/orm" ptype="MONOLITH" ppkg="Controlador.Objetos" epkg="domain" v="5.2" rws="_158143481222315" Pws="_158143481222315" cws="_158143481222315" persistenceUnitName="DEFAULT_PU" sm="false" xs="false" id="_158143481222314" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_1.xsd">
+    <jpa:entity compositePrimaryKeyClass="PersonaPK" abs="false" class="Persona" v="true" jbn="false" xre="false" m="false" rootElement="_158143481222314" id="_158143481874216">
+        <jpa:ath>munchi</jpa:ath>
+        <jpa:attributes>
+            <jpa:basic attribute-type="String" v="true" xvt="" name="nombre" id="_158143493289532">
+                <jpa:xwm/>
+                <jpa:xm/>
+            </jpa:basic>
+            <jpa:basic attribute-type="String" v="true" xvt="" name="apellido" id="_158143493950033">
+                <jpa:xwm/>
+                <jpa:xm/>
+            </jpa:basic>
+            <jpa:basic attribute-type="java.sql.Date" v="true" xvt="" name="fecha_nacimiento" id="_158143494486734">
+                <jpa:xwm/>
+                <jpa:xm/>
+            </jpa:basic>
+            <jpa:id attribute-type="Long" v="true" xvt="" name="dni" id="_158143490978531">
+                <jpa:xwm/>
+                <jpa:xm/>
+                <jpa:generated-value/>
+            </jpa:id>
+        </jpa:attributes>
+        <jpa:nq e="false" name="Persona.findAll">
+            <jpa:query>Select e from Persona e</jpa:query>
+        </jpa:nq>
+        <jpa:nq e="false" name="Persona.findByNombre">
+            <jpa:query>Select e from Persona e where e.nombre=:nombre</jpa:query>
+        </jpa:nq>
+        <jpa:nq e="false" name="Persona.findByApellido">
+            <jpa:query>Select e from Persona e where e.apellido=:apellido</jpa:query>
+        </jpa:nq>
+        <jpa:nq e="false" name="Persona.findByFecha_nacimiento">
+            <jpa:query>Select e from Persona e where e.fecha_nacimiento=:fecha_nacimiento</jpa:query>
+        </jpa:nq>
+    </jpa:entity>
+    <jpa:entity compositePrimaryKeyClass="AlumnoPK" abs="false" class="Alumno" superclassId="_158143481874216" v="true" jbn="false" xre="false" m="false" rootElement="_158143481222314" id="_158143482042619">
+        <jpa:ath>munchi</jpa:ath>
+        <jpa:attributes>
+            <jpa:element-collection target-class="Integer" collection-type="java.util.List" cit="java.util.ArrayList" v="true" xvt="" name="telefonos" id="_158143554119956">
+                <jpa:xwm/>
+                <jpa:xm/>
+            </jpa:element-collection>
+            <jpa:embedded connected-class-id="_158143482653925" v="true" xvt="" name="direccion" id="_158143529518048">
+                <jpa:xwm/>
+                <jpa:xm/>
+            </jpa:embedded>
+            <jpa:many-to-many own="true" collection-type="java.util.List" cit="java.util.ArrayList" connected-entity-id="_158143482866427" connected-attribute-id="_158143544677053" v="true" xvt="" name="asignaturas" id="_158143544675852">
+                <jpa:xwm/>
+                <jpa:xm/>
+            </jpa:many-to-many>
+        </jpa:attributes>
+        <jpa:nq e="false" name="Alumno.findAll">
+            <jpa:query>Select e from Alumno e</jpa:query>
+        </jpa:nq>
+    </jpa:entity>
+    <jpa:entity compositePrimaryKeyClass="ProfesorPK" abs="false" class="Profesor" superclassId="_158143481874216" v="true" jbn="false" xre="false" m="false" rootElement="_158143481222314" id="_158143482218422">
+        <jpa:ath>munchi</jpa:ath>
+        <jpa:attributes>
+            <jpa:basic attribute-type="String" v="true" xvt="" name="rol" id="_158143513421538">
+                <jpa:xwm/>
+                <jpa:xm/>
+            </jpa:basic>
+            <jpa:element-collection target-class="Integer" collection-type="java.util.List" cit="java.util.ArrayList" v="true" xvt="" name="telefonos" id="_158143516693040">
+                <jpa:xwm/>
+                <jpa:xm/>
+            </jpa:element-collection>
+            <jpa:embedded connected-class-id="_158143482653925" v="true" xvt="" name="direccion" id="_158143525878943">
+                <jpa:xwm/>
+                <jpa:xm/>
+            </jpa:embedded>
+        </jpa:attributes>
+        <jpa:nq e="false" name="Profesor.findAll">
+            <jpa:query>Select e from Profesor e</jpa:query>
+        </jpa:nq>
+        <jpa:nq e="false" name="Profesor.findByRol">
+            <jpa:query>Select p from Profesor p where p.rol=:rol</jpa:query>
+        </jpa:nq>
+        <jpa:nq e="false" name="Profesor.findByTelefonos">
+            <jpa:query>Select p from Profesor p where p.telefonos=:telefonos</jpa:query>
+        </jpa:nq>
+    </jpa:entity>
+    <jpa:entity compositePrimaryKeyClass="AsignaturaPK" abs="false" class="Asignatura" v="true" jbn="false" xre="false" m="false" rootElement="_158143481222314" id="_158143482866427">
+        <jpa:ath>munchi</jpa:ath>
+        <jpa:attributes>
+            <jpa:basic attribute-type="String" v="true" xvt="" name="nombre" id="_158143541084049">
+                <jpa:xwm/>
+                <jpa:xm/>
+            </jpa:basic>
+            <jpa:basic attribute-type="int" v="true" xvt="" name="curso" id="_158143541904350">
+                <jpa:xwm/>
+                <jpa:xm/>
+            </jpa:basic>
+            <jpa:many-to-one optional="true" primaryKey="false" connected-entity-id="_158143482218422" v="true" xvt="" name="profesor" id="_158144408649458">
+                <jpa:xwm/>
+                <jpa:xm/>
+            </jpa:many-to-one>
+            <jpa:many-to-many collection-type="java.util.List" cit="java.util.ArrayList" connected-entity-id="_158143482042619" connected-attribute-id="_158143544675852" v="true" xvt="" name="alumnoes" id="_158143544677053">
+                <jpa:xwm/>
+                <jpa:xm/>
+            </jpa:many-to-many>
+            <jpa:id attribute-type="String" v="true" xvt="" name="alias" id="_158143482866428">
+                <jpa:xwm/>
+                <jpa:xm/>
+                <jpa:generated-value strategy="DEFAULT"/>
+            </jpa:id>
+        </jpa:attributes>
+        <jpa:nq e="false" name="Asignatura.findAll">
+            <jpa:query>Select e from Asignatura e</jpa:query>
+        </jpa:nq>
+        <jpa:nq e="false" name="Asignatura.findByNombre">
+            <jpa:query>Select a from Asignatura a where a.nombre=:nombre</jpa:query>
+        </jpa:nq>
+        <jpa:nq e="false" name="Asignatura.findByCurso">
+            <jpa:query>Select a from Asignatura a where a.curso=:curso</jpa:query>
+        </jpa:nq>
+    </jpa:entity>
+    <jpa:embeddable abs="false" class="Direccion" v="true" jbn="false" xre="false" m="false" rootElement="_158143481222314" id="_158143482653925">
+        <jpa:ath>munchi</jpa:ath>
+        <jpa:attributes>
+            <jpa:basic attribute-type="String" v="true" xvt="" name="ciudad" id="_158143526948444">
+                <jpa:xwm/>
+                <jpa:xm/>
+            </jpa:basic>
+            <jpa:basic attribute-type="String" v="true" xvt="" name="calle" id="_158143527332445">
+                <jpa:xwm/>
+                <jpa:xm/>
+            </jpa:basic>
+            <jpa:basic attribute-type="int" v="true" xvt="" name="numero" id="_158143527667646">
+                <jpa:xwm/>
+                <jpa:xm/>
+            </jpa:basic>
+        </jpa:attributes>
+    </jpa:embeddable>
+    <jpa:c>
+        <ct>java.util.List</ct>
+        <ct>java.util.Set</ct>
+        <ct>java.util.Map</ct>
+        <ct>java.util.Collection</ct>
+        <cit>java.util.ArrayList</cit>
+        <cit>java.util.LinkedList</cit>
+        <cit>java.util.HashSet</cit>
+        <cit>java.util.TreeSet</cit>
+        <cit>java.util.HashMap</cit>
+    </jpa:c>
+    <jpa:wsl>
+        <jpa:ws n="Main" id="_158143481222315">
+            <i ref="_158143481874216" x="431" y="29"/>
+            <i ref="_158143482218422" x="184" y="227"/>
+            <i ref="_158143482866427" x="11" y="447"/>
+            <i ref="_158143482653925" x="425" y="353"/>
+            <i ref="_158143482042619" x="676" y="227"/>
+        </jpa:ws>
+    </jpa:wsl>
+</jpa:entity-mappings>

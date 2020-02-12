@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<jpa:entity-mappings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:java="http://jcp.org/en/jsr/detail?id=270" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:jpa="http://java.sun.com/xml/ns/persistence/orm" v="5.2" rws="_15814344000072" cws="_15814344000072" persistenceUnitName="DEFAULT_PU" sm="false" xs="false" id="_15814344000071" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_1.xsd">
+    <jpa:entity compositePrimaryKeyClass="Entity_1PK" abs="false" class="Entity_1" pclass="Entity_1" v="true" xre="false" m="false" rootElement="_15814344000071" id="_15814346116053">
+        <jpa:ath>munchi</jpa:ath>
+        <jpa:attributes>
+            <jpa:id attribute-type="Long" v="true" name="id" id="_15814346118044">
+                <jpa:generated-value strategy="DEFAULT"/>
+            </jpa:id>
+        </jpa:attributes>
+        <jpa:nq e="false" name="Entity_1.findAll">
+            <jpa:query>Select e from Entity_1 e</jpa:query>
+        </jpa:nq>
+    </jpa:entity>
+    <jpa:entity compositePrimaryKeyClass="Entity_2PK" abs="false" class="Entity_2" pclass="Entity_2" v="true" xre="false" m="false" rootElement="_15814344000071" id="_15814346270106">
+        <jpa:ath>munchi</jpa:ath>
+        <jpa:attributes>
+            <jpa:id attribute-type="Long" v="true" name="id" id="_15814346270107">
+                <jpa:generated-value strategy="DEFAULT"/>
+            </jpa:id>
+        </jpa:attributes>
+        <jpa:nq e="false" name="Entity_2.findAll">
+            <jpa:query>Select e from Entity_2 e</jpa:query>
+        </jpa:nq>
+    </jpa:entity>
+    <jpa:entity compositePrimaryKeyClass="Entity_3PK" abs="false" class="Entity_3" pclass="Entity_3" v="true" xre="false" m="false" rootElement="_15814344000071" id="_15814346293949">
+        <jpa:ath>munchi</jpa:ath>
+        <jpa:attributes>
+            <jpa:id attribute-type="Long" v="true" name="id" id="_158143462939410">
+                <jpa:generated-value strategy="DEFAULT"/>
+            </jpa:id>
+        </jpa:attributes>
+        <jpa:nq e="false" name="Entity_3.findAll">
+            <jpa:query>Select e from Entity_3 e</jpa:query>
+        </jpa:nq>
+    </jpa:entity>
+    <jpa:embeddable abs="false" class="Embeddable_1" pclass="Embeddable_1" v="true" xre="false" m="false" rootElement="_15814344000071" id="_158143463222412">
+        <jpa:ath>munchi</jpa:ath>
+        <jpa:attributes/>
+    </jpa:embeddable>
+    <jpa:wsl>
+        <jpa:ws n="Main" id="_15814344000072">
+            <i ref="_15814346270106" x="739" y="168"/>
+            <i ref="_158143463222412" x="498" y="264"/>
+            <i ref="_15814346293949" x="330" y="187"/>
+            <i ref="_15814346116053" x="498" y="40"/>
+        </jpa:ws>
+    </jpa:wsl>
+</jpa:entity-mappings>
