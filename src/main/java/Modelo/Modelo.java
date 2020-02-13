@@ -2,6 +2,7 @@
 package Modelo;
 
 import Controlador.Objetos.domain.Alumno;
+import Controlador.Objetos.domain.Asignatura;
 import java.util.List;
 
 /**
@@ -12,5 +13,9 @@ public interface Modelo {
     public void insertarObjetos();
     
     public List<Alumno> obtenerAlumnos();
+
+    public List<Asignatura> obtenerAsignaturas();
+
+    public void updateAlumno(Alumno alumno);
     
 }

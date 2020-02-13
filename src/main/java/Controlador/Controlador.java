@@ -1,6 +1,7 @@
 package Controlador;
 
 import Controlador.Objetos.domain.Alumno;
+import Controlador.Objetos.domain.Asignatura;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +16,10 @@ public interface Controlador {
     public void iniciar();
 
     public void insertarObjetosCon();
+
+    public List<Asignatura> getAsignaturas();
+
+    public void updateAlumnoCon(Alumno recogerDatosFormulario);
 
     
 }

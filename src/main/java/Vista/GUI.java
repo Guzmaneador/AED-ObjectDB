@@ -20,6 +20,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 //import java.text.SimplDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JCheckBox;
@@ -36,8 +37,8 @@ public class GUI extends javax.swing.JFrame implements Vista {
         ArrayList<String> siglasAsignaturas;
 
     ArrayList<Profesor> profesores;
-    public ArrayList<Alumno> alumnos;
-    ArrayList<Asignatura> asignaturas;
+    ArrayList<Alumno> alumnos;
+    List<Asignatura> asignaturas;
     ArrayList <JCheckBox> siglasCB;
     String dniAlumnoEncontrado;
     /**
@@ -50,9 +51,10 @@ public class GUI extends javax.swing.JFrame implements Vista {
         dniAlumnoEncontrado="";
         insertarButtom.setVisible(true);
         actualizarButtom.setVisible(false);
-        System.out.println("Holii");
 //        controlador.insertarObjetosCon();
         alumnos = (ArrayList<Alumno>) controlador.getAlumnosCon();
+        asignaturas= controlador.getAsignaturas();
+        mostrarAsignatura();
 
     }
 
@@ -478,8 +480,6 @@ public class GUI extends javax.swing.JFrame implements Vista {
                 break;
             }
         }
-        
-        
     }//GEN-LAST:event_dniProfesorTFKeyPressed
 
     private void asignaturasRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_asignaturasRBActionPerformed
@@ -541,7 +541,7 @@ public class GUI extends javax.swing.JFrame implements Vista {
     }//GEN-LAST:event_dniAlumnoTFKeyPressed
 
     private void actualizarButtomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actualizarButtomActionPerformed
-//        controlador.updateAlumnoCon(recogerDatosFormulario());
+        controlador.updateAlumnoCon(recogerDatosFormulario());
     }//GEN-LAST:event_actualizarButtomActionPerformed
 
     private void insertarButtomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertarButtomActionPerformed
@@ -696,54 +696,55 @@ System.out.println("holii");
         }
         
     }
-//    
-//    public AlumnoVO recogerDatosFormulario(){
-//        AlumnoVO alumno = new AlumnoVO();
-//        alumno.setNombre(nombreTF.getText());
-//        alumno.setApellido(apellidosTF.getText());
+    
+    public Alumno recogerDatosFormulario(){
+        Alumno alumno = new Alumno();
+        alumno.setNombre(nombreTF.getText());
+        alumno.setApellido(apellidosTF.getText());
+        
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            java.util.Date utilDate = formatoFecha.parse(nacimientoTF.getText());
+            java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+//            Date fecha=(Date) formatoFecha.parse(nacimientoTF.getText());
+            alumno.setFecha_nacimiento(sqlDate);
+        } catch (ParseException ex) {
+            Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
 //        alumno.setTelefono(telefonoTF.getText());
-//        
-//        SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy/MM/dd");
-//        try {
-//            java.util.Date utilDate = formatoFecha.parse(nacimientoTF.getText());
-//            java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
-////            Date fecha=(Date) formatoFecha.parse(nacimientoTF.getText());
-//            alumno.setFechaNacimiento(sqlDate);
-//        } catch (ParseException ex) {
-//            Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        
-//        alumno.setTelefono(telefonoTF.getText());
-//        alumno.setMunicipio(municipioTF.getText());
-//        alumno.setCalle(calleTF.getText());
-//        alumno.setNumero(Integer.parseInt(portalTF.getText()));
-//        alumno.setCodigoPostal(Integer.parseInt(postalTF.getText()));
-//        
-//        ArrayList<String> seMatricula = new ArrayList<>();
-//        for (JCheckBox siglas : siglasCB) {
-//            if(siglas.isSelected()&& siglas.isEnabled())
-//                seMatricula.add(siglas.getText());
-//        }
-//        alumno.setAsignaturasMatriculado(seMatricula);
-//        alumno.setDni(dniAlumnoEncontrado);
-//        
-//       return alumno; 
-//        
-//    }
-//    
-//    public void mostrarAsignatura(){
-//        for (String siglas : siglasAsignaturas) {
-//            siglasCB.add(new JCheckBox(siglas));
-//            
-//        }
-//        siglasPanel.setLayout(new FlowLayout());
-//        for (JCheckBox CB : siglasCB) {
-//            
-//            siglasPanel.add(CB);
-//            CB.setVisible(true);
-//            this.pack();
-//        }
-//    }
+        Direccion direccion = new Direccion(municipioTF.getText(),calleTF.getText(),Integer.parseInt (portalTF.getText()));
+        alumno.setDireccion(direccion);
+        
+        ArrayList<String> seMatricula = new ArrayList<>();
+        List<Asignatura> matriculado = new ArrayList<>();
+        for (JCheckBox siglas : siglasCB) {
+            if(siglas.isSelected()&& siglas.isEnabled())
+                for (Asignatura asignatura : asignaturas) {
+                    if(siglas.equals(asignatura.getAlias()))
+                        matriculado.add(asignatura);
+                }
+        }
+        alumno.setAsignaturas(asignaturas);
+        alumno.setDni(dniAlumnoEncontrado);
+        
+       return alumno; 
+        
+    }
+    
+    public void mostrarAsignatura(){
+        for (Asignatura siglas : asignaturas) {
+            siglasCB.add(new JCheckBox(siglas.getAlias()));
+            
+        }
+        siglasPanel.setLayout(new FlowLayout());
+        for (JCheckBox CB : siglasCB) {
+            
+            siglasPanel.add(CB);
+            CB.setVisible(true);
+            this.pack();
+        }
+    }
 //    
 
 }

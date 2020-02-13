@@ -2,6 +2,7 @@
 package Controlador;
 
 import Controlador.Objetos.domain.Alumno;
+import Controlador.Objetos.domain.Asignatura;
 import Modelo.Modelo;
 import Vista.Vista;
 import java.util.ArrayList;
@@ -33,6 +34,16 @@ public class ControladorImpl implements Controlador{
     @Override
     public List<Alumno> getAlumnosCon() {
         return modelo.obtenerAlumnos();
+    }
+
+    @Override
+    public List<Asignatura> getAsignaturas() {
+         return modelo.obtenerAsignaturas();
+    }
+
+    @Override
+    public void updateAlumnoCon(Alumno alumno) {
+        modelo.updateAlumno(alumno);
     }
     
     
