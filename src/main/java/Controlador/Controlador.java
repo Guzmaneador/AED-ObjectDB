@@ -21,5 +21,8 @@ public interface Controlador {
 
     public void updateAlumnoCon(Alumno recogerDatosFormulario);
 
+    public void createAlumnoCon(Alumno alumno);
+    public List <Asignatura> AsignaturasProfesorCon(String dni);
+
     
 }

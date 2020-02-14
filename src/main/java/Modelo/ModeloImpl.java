@@ -21,36 +21,33 @@ public class ModeloImpl implements Modelo{
     EntityManagerFactory emf ;
 
     public ModeloImpl() {
+        emf = Persistence.createEntityManagerFactory("src/db/matricula.odb");
+        em = emf.createEntityManager();
     }
     
     @Override
     public List<Alumno> obtenerAlumnos() {
-        emf = Persistence.createEntityManagerFactory("src/db/matricula.odb");
-        em = emf.createEntityManager();
+
         Query consulta = em.createQuery("SELECT a FROM Alumno a",Alumno.class);
         List<Alumno> alumnos= consulta.getResultList();
-        em.close();
-        emf.close();
+
         return alumnos;
     }
     
     
     @Override
     public List<Asignatura> obtenerAsignaturas() {
-        emf = Persistence.createEntityManagerFactory("src/db/matricula.odb");
-        em = emf.createEntityManager();
+
         Query consulta = em.createQuery("SELECT a FROM Asignatura a",Asignatura.class);
         List<Asignatura> asignaturas= consulta.getResultList();
-        em.close();
-        emf.close();
+
         return asignaturas;
     }
     
     
     @Override
     public void updateAlumno(Alumno alumno) {
-        emf = Persistence.createEntityManagerFactory("src/db/matricula.odb");
-        em = emf.createEntityManager();
+
         //BORRAMOS
         Query consulta = em.createQuery("SELECT a FROM Alumno a WHERE a.dni = :dni");
         consulta.setParameter("dni", alumno.getDni());
@@ -62,13 +59,47 @@ public class ModeloImpl implements Modelo{
         em.getTransaction().begin();
         em.persist(alumno);
         em.getTransaction().commit();
-        em.close();
-        emf.close();
+
+    }
+    
+    
+
+    @Override
+    public void createAlumno(Alumno alumno) {
+        emf = Persistence.createEntityManagerFactory("src/db/matricula.odb");
+        em = emf.createEntityManager();
+        em.getTransaction().begin();
+        em.persist(alumno);
+        em.getTransaction().commit();
+
     }
 
 
+    @Override
+    public List<Asignatura> asignaturasProfesor(String dni) {
+//       String consulta ="SELECT as FROM Asignatura WHERE as.profesor = (SELECT p FROM profesor WHERE p.dni =:dni";
+               emf = Persistence.createEntityManagerFactory("src/db/matricula.odb");
+        em = emf.createEntityManager();
+        Query consulta = em.createQuery("SELECT a FROM Asignatura a WHERE a.profesor.dni =:dni",Asignatura.class);
+        consulta.setParameter("dni", dni);
 
-    
+        List<Asignatura> asignaturas= consulta.getResultList();
+
+        
+        return asignaturas;
+    }
+//        @Override
+    public List<Asignatura> alumnosProfesor(String dni) {
+               emf = Persistence.createEntityManagerFactory("src/db/matricula.odb");
+        em = emf.createEntityManager();
+        Query consulta = em.createQuery("SELECT a FROM Asignatura a WHERE a.profesor.dni =:dni",Asignatura.class);
+        consulta.setParameter("dni", dni);
+
+        List<Asignatura> asignaturas= consulta.getResultList();
+
+        
+        return asignaturas;
+    }
     
     
     
@@ -179,6 +210,9 @@ public class ModeloImpl implements Modelo{
 
 
     }
+
+
+
 
     
     

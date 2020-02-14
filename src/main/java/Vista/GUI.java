@@ -51,7 +51,7 @@ public class GUI extends javax.swing.JFrame implements Vista {
         dniAlumnoEncontrado="";
         insertarButtom.setVisible(true);
         actualizarButtom.setVisible(false);
-//        controlador.insertarObjetosCon();
+//       controlador.insertarObjetosCon();
         alumnos = (ArrayList<Alumno>) controlador.getAlumnosCon();
         asignaturas= controlador.getAsignaturas();
         mostrarAsignatura();
@@ -347,14 +347,11 @@ public class GUI extends javax.swing.JFrame implements Vista {
                         .addComponent(dosCB)
                         .addGap(70, 70, 70))))
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(147, 147, 147)
-                        .addComponent(siglasTF, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(135, 135, 135)
-                        .addComponent(siglasJ)))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(127, 127, 127)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(siglasTF, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(siglasJ))
+                .addGap(0, 194, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -390,6 +387,11 @@ public class GUI extends javax.swing.JFrame implements Vista {
             }
         });
 
+        dniProfesorTF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dniProfesorTFActionPerformed(evt);
+            }
+        });
         dniProfesorTF.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 dniProfesorTFKeyPressed(evt);
@@ -483,9 +485,9 @@ public class GUI extends javax.swing.JFrame implements Vista {
     }//GEN-LAST:event_dniProfesorTFKeyPressed
 
     private void asignaturasRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_asignaturasRBActionPerformed
-        for (String dniProfesor : dniProfesores) {
-            if (dniProfesor.equals(dniProfesorTF.getText())){
-//                listarProfesores(dniProfesor);
+        for (Profesor dniProfesor : profesores) {
+            if (dniProfesor.getDni().equals(dniProfesorTF.getText())){
+                listarProfesores(dniProfesor.getDni());
                 break;
             }
         }
@@ -542,13 +544,18 @@ public class GUI extends javax.swing.JFrame implements Vista {
 
     private void actualizarButtomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actualizarButtomActionPerformed
         controlador.updateAlumnoCon(recogerDatosFormulario());
+        alumnos = (ArrayList<Alumno>) controlador.getAlumnosCon();
     }//GEN-LAST:event_actualizarButtomActionPerformed
 
     private void insertarButtomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertarButtomActionPerformed
-////        AlumnoVO alumno = recogerDatosFormulario();
-//        alumno.setDni(dniAlumnoTF.getText());
-//        controlador.createAlumnoCon(alumno);
+        Alumno alumno = recogerDatosFormulario();
+        alumno.setDni(dniAlumnoTF.getText());
+        controlador.createAlumnoCon(alumno);
     }//GEN-LAST:event_insertarButtomActionPerformed
+
+    private void dniProfesorTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dniProfesorTFActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_dniProfesorTFActionPerformed
 
 
 
@@ -608,15 +615,16 @@ public class GUI extends javax.swing.JFrame implements Vista {
 //      mostrarAsignatura();
 //    }
 //    
-//    public void listarProfesores(String dni){
-//        if (asignaturasRB.isSelected()){
-//            mostrarResultadoProfesores(controlador.AsignaturasProfesorCon(dni));    
-//        }
-//        if(alumnosRB.isSelected()){
+    public void listarProfesores(String dni){
+        if (asignaturasRB.isSelected()){
+//            mostrarResultadoProfesores(
+                    controlador.AsignaturasProfesorCon(dni);    
+        }
+        if(alumnosRB.isSelected()){
 //            mostrarResultadoProfesores(controlador.AlumnosProfesorCon(dni));    
-//        }
-//        
-//    }
+        }
+        
+    }
 //    public void mostrarResultadoProfesores(ArrayList<String> resultados){
 //        String cadena="";
 //        for (String resultado : resultados) {
@@ -649,9 +657,9 @@ public class GUI extends javax.swing.JFrame implements Vista {
 //        }
 //    }
     public void cargarDatosAlumno(String dni){
-//        dniAlumnoEncontrado=dni;
+        dniAlumnoEncontrado=dni;
 //        AlumnoVO alumno = new AlumnoVO();
-System.out.println("holii");
+        System.out.println("holii");
         for (Alumno alu : alumnos) {
             if(dni.equals(alu.getDni())){
                 insertarButtom.setVisible(false);
@@ -721,11 +729,11 @@ System.out.println("holii");
         for (JCheckBox siglas : siglasCB) {
             if(siglas.isSelected()&& siglas.isEnabled())
                 for (Asignatura asignatura : asignaturas) {
-                    if(siglas.equals(asignatura.getAlias()))
+                    if((siglas.getText()).equals(asignatura.getAlias()))
                         matriculado.add(asignatura);
                 }
         }
-        alumno.setAsignaturas(asignaturas);
+        alumno.setAsignaturas(matriculado);
         alumno.setDni(dniAlumnoEncontrado);
         
        return alumno; 

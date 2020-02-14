@@ -45,6 +45,16 @@ public class ControladorImpl implements Controlador{
     public void updateAlumnoCon(Alumno alumno) {
         modelo.updateAlumno(alumno);
     }
+
+    @Override
+    public void createAlumnoCon(Alumno alumno) {
+        modelo.createAlumno(alumno);
+    }
+
+    @Override
+    public List<Asignatura> AsignaturasProfesorCon(String dni) { 
+        return modelo.asignaturasProfesor(dni);
+    }
     
     
 }

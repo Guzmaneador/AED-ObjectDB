@@ -17,5 +17,9 @@ public interface Modelo {
     public List<Asignatura> obtenerAsignaturas();
 
     public void updateAlumno(Alumno alumno);
+
+    public void createAlumno(Alumno alumno);
+
+    public List<Asignatura> asignaturasProfesor(String dni);
     
 }

@@ -15,6 +15,7 @@ import javax.persistence.ManyToMany;
 public class Alumno extends Persona {
 
     public Alumno() {
+        asignaturas = new ArrayList<>();
     }
 
     public Alumno(List<Integer> telefonos, Direccion direccion, List<Asignatura> asignaturas, String dni, String nombre, String apellido, Date fecha_nacimiento) {
