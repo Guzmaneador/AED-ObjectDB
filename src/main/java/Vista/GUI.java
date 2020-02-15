@@ -536,6 +536,7 @@ public class GUI extends javax.swing.JFrame implements Vista {
         Alumno alumno = recogerDatosFormulario();
         alumno.setDni(dniAlumnoTF.getText());
         controlador.createAlumnoCon(alumno);
+        alumnos = (ArrayList<Alumno>) controlador.getAlumnosCon();
     }//GEN-LAST:event_insertarButtomActionPerformed
 
     private void siglasTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_siglasTFActionPerformed
@@ -673,7 +674,7 @@ public class GUI extends javax.swing.JFrame implements Vista {
         List<Integer> tel = alumno.getTelefonos();
         String telefonos="";
         for (Integer te : tel) {
-            telefonos += te+", ";
+            telefonos += te+",";
         }
         
        telefonoTF.setText(telefonos);
@@ -713,7 +714,9 @@ public class GUI extends javax.swing.JFrame implements Vista {
         String[] tel = (telefonoTF.getText()).split(",");
         List<Integer> telefonos = new ArrayList<>();
         for (String te : tel) {
+//            alumno.addTelefono(Integer.parseInt(te));
             telefonos.add(Integer.parseInt(te));
+            
         }
         alumno.setTelefonos(telefonos);
         Direccion direccion = new Direccion(municipioTF.getText(),calleTF.getText(),Integer.parseInt (portalTF.getText()));
@@ -722,7 +725,7 @@ public class GUI extends javax.swing.JFrame implements Vista {
         ArrayList<String> seMatricula = new ArrayList<>();
         List<Asignatura> matriculado = new ArrayList<>();
         for (JCheckBox siglas : siglasCB) {
-            if(siglas.isSelected()&& siglas.isEnabled())
+            if(siglas.isSelected() || !siglas.isEnabled())
                 for (Asignatura asignatura : asignaturas) {
                     if((siglas.getText()).equals(asignatura.getAlias()))
                         matriculado.add(asignatura);
