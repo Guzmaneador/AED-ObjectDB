@@ -2,6 +2,7 @@ package Controlador;
 
 import Controlador.Objetos.domain.Alumno;
 import Controlador.Objetos.domain.Asignatura;
+import Controlador.Objetos.domain.Profesor;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +23,16 @@ public interface Controlador {
     public void updateAlumnoCon(Alumno recogerDatosFormulario);
 
     public void createAlumnoCon(Alumno alumno);
+    
     public List <Asignatura> AsignaturasProfesorCon(String dni);
+
+    public List<Alumno> cursoAsignaturaCon(int i);
+
+    public List<Alumno> mostrarAlumnosDeAsignatura(String siglas);
+
+    public List<Profesor> getProfesores();
+
+    public List<Alumno> AlumnosProfesorCon(String dni);
 
     
 }

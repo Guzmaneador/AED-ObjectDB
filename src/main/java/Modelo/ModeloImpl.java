@@ -89,20 +89,35 @@ public class ModeloImpl implements Modelo{
         return asignaturas;
     }
 //        @Override
-    public List<Asignatura> alumnosProfesor(String dni) {
-               emf = Persistence.createEntityManagerFactory("src/db/matricula.odb");
+    public List<Alumno> alumnosProfesor(String dni) {
+        emf = Persistence.createEntityManagerFactory("src/db/matricula.odb");
         em = emf.createEntityManager();
-        Query consulta = em.createQuery("SELECT a FROM Asignatura a WHERE a.profesor.dni =:dni",Asignatura.class);
+        Query consulta = em.createQuery("SELECT distinct(a.alumnoes)  FROM Asignatura a WHERE a.profesor.dni =:dni",Asignatura.class);
         consulta.setParameter("dni", dni);
 
-        List<Asignatura> asignaturas= consulta.getResultList();
+        return consulta.getResultList();
 
-        
-        return asignaturas;
     }
     
+    @Override
+    public List<Alumno> cursoAsignatura(int i) {
+        emf = Persistence.createEntityManagerFactory("src/db/matricula.odb");
+        em = emf.createEntityManager();
+        Query consulta = em.createQuery("SELECT distinct(a.alumnoes)  FROM Asignatura a WHERE a.curso =:curso",Asignatura.class);
+        consulta.setParameter("curso", i);
+
+        return consulta.getResultList();
+    }
     
-    
+    @Override
+    public List<Alumno> mostrarAlumnosDeAsignatura(String siglas) {
+        emf = Persistence.createEntityManagerFactory("src/db/matricula.odb");
+        em = emf.createEntityManager();
+        Query consulta = em.createQuery("SELECT distinct(a.alumnoes)  FROM Asignatura a WHERE a.alias =:alias",Asignatura.class);
+        consulta.setParameter("alias", siglas);
+
+        return consulta.getResultList();
+    }
     
     
     
@@ -210,6 +225,18 @@ public class ModeloImpl implements Modelo{
 
 
     }
+
+    @Override
+    public List<Profesor> getProfesores() {
+       
+        Query consulta = em.createQuery("SELECT a FROM Profesor a",Profesor.class);
+        return consulta.getResultList();
+
+    }
+
+
+
+
 
 
 

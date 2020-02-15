@@ -3,6 +3,7 @@ package Controlador;
 
 import Controlador.Objetos.domain.Alumno;
 import Controlador.Objetos.domain.Asignatura;
+import Controlador.Objetos.domain.Profesor;
 import Modelo.Modelo;
 import Vista.Vista;
 import java.util.ArrayList;
@@ -54,6 +55,28 @@ public class ControladorImpl implements Controlador{
     @Override
     public List<Asignatura> AsignaturasProfesorCon(String dni) { 
         return modelo.asignaturasProfesor(dni);
+    }
+
+    @Override
+    public List<Alumno> cursoAsignaturaCon(int i) {
+         return modelo.cursoAsignatura(i);
+
+        
+    }
+
+    @Override
+    public List<Alumno> mostrarAlumnosDeAsignatura(String siglas) {
+       return modelo. mostrarAlumnosDeAsignatura(siglas);
+    }
+
+    @Override
+    public List<Profesor> getProfesores() {
+       return modelo.getProfesores();
+    }
+
+    @Override
+    public List<Alumno> AlumnosProfesorCon(String dni) {
+        return modelo.alumnosProfesor(dni);
     }
     
     

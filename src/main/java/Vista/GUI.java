@@ -33,10 +33,9 @@ public class GUI extends javax.swing.JFrame implements Vista {
     Controlador controlador;
     Modelo modelo = new ModeloImpl();
 //    Vista vista = this;
-    ArrayList<String> dniProfesores;
-        ArrayList<String> siglasAsignaturas;
 
-    ArrayList<Profesor> profesores;
+
+    List<Profesor> profesores;
     ArrayList<Alumno> alumnos;
     List<Asignatura> asignaturas;
     ArrayList <JCheckBox> siglasCB;
@@ -54,6 +53,7 @@ public class GUI extends javax.swing.JFrame implements Vista {
 //       controlador.insertarObjetosCon();
         alumnos = (ArrayList<Alumno>) controlador.getAlumnosCon();
         asignaturas= controlador.getAsignaturas();
+        profesores =controlador.getProfesores();
         mostrarAsignatura();
 
     }
@@ -99,10 +99,10 @@ public class GUI extends javax.swing.JFrame implements Vista {
         jPanel6 = new javax.swing.JPanel();
         asignaturasRB = new javax.swing.JRadioButton();
         alumnosRB = new javax.swing.JRadioButton();
-        dniProfesorTF = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         listaProfes = new javax.swing.JTextArea();
         jLabel11 = new javax.swing.JLabel();
+        dniProfesorTF = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -305,6 +305,11 @@ public class GUI extends javax.swing.JFrame implements Vista {
 
         jTabbedPane1.addTab("Estudiantes", jPanel1);
 
+        siglasTF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                siglasTFActionPerformed(evt);
+            }
+        });
         siglasTF.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 siglasTFKeyPressed(evt);
@@ -387,17 +392,6 @@ public class GUI extends javax.swing.JFrame implements Vista {
             }
         });
 
-        dniProfesorTF.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dniProfesorTFActionPerformed(evt);
-            }
-        });
-        dniProfesorTF.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                dniProfesorTFKeyPressed(evt);
-            }
-        });
-
         listaProfes.setColumns(20);
         listaProfes.setRows(5);
         jScrollPane2.setViewportView(listaProfes);
@@ -421,9 +415,9 @@ public class GUI extends javax.swing.JFrame implements Vista {
                         .addGap(69, 69, 69))))
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGap(161, 161, 161)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel11)
-                    .addComponent(dniProfesorTF, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(dniProfesorTF))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
@@ -431,15 +425,15 @@ public class GUI extends javax.swing.JFrame implements Vista {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(jLabel11)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addComponent(dniProfesorTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(asignaturasRB)
                     .addComponent(alumnosRB))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(358, Short.MAX_VALUE))
         );
 
         jTabbedPane2.addTab("Profesores", jPanel6);
@@ -475,15 +469,6 @@ public class GUI extends javax.swing.JFrame implements Vista {
         // TODO add your handling code here:
     }//GEN-LAST:event_nombreTFActionPerformed
 
-    private void dniProfesorTFKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_dniProfesorTFKeyPressed
-        for (String dniProfesor : dniProfesores) {
-            if (dniProfesor.equals(dniProfesorTF.getText())){
-//                listarProfesores(dniProfesor);
-                break;
-            }
-        }
-    }//GEN-LAST:event_dniProfesorTFKeyPressed
-
     private void asignaturasRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_asignaturasRBActionPerformed
         for (Profesor dniProfesor : profesores) {
             if (dniProfesor.getDni().equals(dniProfesorTF.getText())){
@@ -494,25 +479,25 @@ public class GUI extends javax.swing.JFrame implements Vista {
     }//GEN-LAST:event_asignaturasRBActionPerformed
 
     private void alumnosRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alumnosRBActionPerformed
-        for (String dniProfesor : dniProfesores) {
-            if (dniProfesor.equals(dniProfesorTF.getText())){
-//                listarProfesores(dniProfesor);
+       for (Profesor dniProfesor : profesores) {
+            if (dniProfesor.getDni().equals(dniProfesorTF.getText())){
+                listarProfesores(dniProfesor.getDni());
                 break;
             }
         }
     }//GEN-LAST:event_alumnosRBActionPerformed
 
     private void siglasTFKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_siglasTFKeyPressed
-        for (String siglas : siglasAsignaturas) {
-            if (siglas.equals(siglasTF.getText())){
-//                listarAlumnos(siglas);
+        for (Asignatura siglas : asignaturas) {
+            if ((siglas.getAlias()).equals(siglasTF.getText())){
+               listarAlumnos(siglas.getAlias());
                 break;
             }
         }
     }//GEN-LAST:event_siglasTFKeyPressed
 
     private void unoCBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_unoCBActionPerformed
-//        listarAlumnos("ds");
+        listarAlumnos("ds");
         if(unoCB.isSelected() || dosCB.isSelected()){
             siglasTF.setVisible(false);
             siglasJ.setVisible(false);
@@ -553,9 +538,9 @@ public class GUI extends javax.swing.JFrame implements Vista {
         controlador.createAlumnoCon(alumno);
     }//GEN-LAST:event_insertarButtomActionPerformed
 
-    private void dniProfesorTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dniProfesorTFActionPerformed
+    private void siglasTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_siglasTFActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_dniProfesorTFActionPerformed
+    }//GEN-LAST:event_siglasTFActionPerformed
 
 
 
@@ -608,54 +593,54 @@ public class GUI extends javax.swing.JFrame implements Vista {
        this.setVisible(true);
        
     }
-//    public void obtenerDnisYAsignaturas(){
-//      dniProfesores = controlador.dniProfesoresCon();
-//      dniAlumnos =controlador.dniAlumnosCon();
-//      siglasAsignaturas = controlador.siglaAsignaturaCon();
-//      mostrarAsignatura();
-//    }
-//    
+  
     public void listarProfesores(String dni){
         if (asignaturasRB.isSelected()){
-//            mostrarResultadoProfesores(
-                    controlador.AsignaturasProfesorCon(dni);    
+            mostrarResultadoProfesores(controlador.AsignaturasProfesorCon(dni));    
         }
         if(alumnosRB.isSelected()){
-//            mostrarResultadoProfesores(controlador.AlumnosProfesorCon(dni));    
+           mostrarResultadoProfeso(controlador.AlumnosProfesorCon(dni));    
         }
         
     }
-//    public void mostrarResultadoProfesores(ArrayList<String> resultados){
-//        String cadena="";
-//        for (String resultado : resultados) {
-//            cadena += resultado+"\n";
-//
-//        }
-//                    listaProfes.setText(cadena);
-//    }
-//    public void mostrarResultadoAlumnos(ArrayList<String> resultados){
-//        String cadena="";
-//        for (String resultado : resultados) {
-//            cadena += resultado+"\n";
-//
-//        }
-//                    alumnosLista.setText(cadena);
-//    }
-//    public void mostrarAlumnosEnAsignaturas(){
-//        
-//    }
-//
-//    private void listarAlumnos(String siglas) {
-//        if (!unoCB.isSelected() && !dosCB.isSelected()){
-//            mostrarResultadoAlumnos(controlador.alumnosAsignaturaCon(siglas,0));    
-//        }else if(unoCB.isSelected() && dosCB.isSelected()){
-//            mostrarResultadoAlumnos(controlador.cursoAsignaturaCon(0));    
-//        }else if(unoCB.isSelected()){
-//            mostrarResultadoAlumnos(controlador.cursoAsignaturaCon(1));    
-//        }else if(dosCB.isSelected()){
-//            mostrarResultadoAlumnos(controlador.cursoAsignaturaCon(2));    
-//        }
-//    }
+    public void mostrarResultadoProfesores(List<Asignatura> resultados){
+        String cadena="";
+        for (Asignatura resultado : resultados) {
+            cadena += resultado.toString()+"\n";
+
+        }
+                    listaProfes.setText(cadena);
+    }
+    public void mostrarResultadoProfeso(List<Alumno> resultados){
+        String cadena="";
+        for (Alumno resultado : resultados) {
+            cadena += resultado.toString()+"\n";
+
+        }
+                    listaProfes.setText(cadena);
+    }
+    public void mostrarResultadoAlumnos(List<Alumno> resultados){
+        String cadena="";
+        for (Alumno resultado : resultados) {
+            cadena += resultado.toString()+"\n";
+
+        }
+                    alumnosLista.setText(cadena);
+    }
+
+    private void listarAlumnos(String siglas) {
+        if (!unoCB.isSelected() && !dosCB.isSelected()){
+        mostrarResultadoAlumnos(controlador.mostrarAlumnosDeAsignatura(siglas));    
+        }else if(unoCB.isSelected() && dosCB.isSelected()){
+            mostrarResultadoAlumnos(controlador.cursoAsignaturaCon(0));    
+        }else if(unoCB.isSelected()){
+            mostrarResultadoAlumnos(controlador.cursoAsignaturaCon(1));    
+        }else if(dosCB.isSelected()){
+            mostrarResultadoAlumnos(controlador.cursoAsignaturaCon(2));
+
+            
+        }
+    }
     public void cargarDatosAlumno(String dni){
         dniAlumnoEncontrado=dni;
 //        AlumnoVO alumno = new AlumnoVO();
@@ -685,8 +670,13 @@ public class GUI extends javax.swing.JFrame implements Vista {
         SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
         String fechaComoCadena = formatoFecha.format(alumno.getFecha_nacimiento());
         nacimientoTF.setText(fechaComoCadena);
+        List<Integer> tel = alumno.getTelefonos();
+        String telefonos="";
+        for (Integer te : tel) {
+            telefonos += te+", ";
+        }
         
-//        telefonoTF.setText(alumno.getTelefono());
+       telefonoTF.setText(telefonos);
         Direccion direccion = alumno.getDireccion();
         municipioTF.setText(direccion.getCiudad());
         calleTF.setText(direccion.getCalle());
@@ -720,7 +710,12 @@ public class GUI extends javax.swing.JFrame implements Vista {
             Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-//        alumno.setTelefono(telefonoTF.getText());
+        String[] tel = (telefonoTF.getText()).split(",");
+        List<Integer> telefonos = new ArrayList<>();
+        for (String te : tel) {
+            telefonos.add(Integer.parseInt(te));
+        }
+        alumno.setTelefonos(telefonos);
         Direccion direccion = new Direccion(municipioTF.getText(),calleTF.getText(),Integer.parseInt (portalTF.getText()));
         alumno.setDireccion(direccion);
         

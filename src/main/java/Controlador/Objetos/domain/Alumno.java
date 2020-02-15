@@ -83,4 +83,10 @@ public class Alumno extends Persona {
         asignatura.getAlumnoes().remove(this);
     }
 
+    @Override
+    public String toString() {
+        return "Alumno{"+super.toString() + "telefonos=" + telefonos + ", direccion=" + direccion + ", asignaturas=" + asignaturas + '}';
+    }
+
+    
 }

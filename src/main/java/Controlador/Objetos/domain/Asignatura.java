@@ -98,4 +98,10 @@ public class Asignatura implements Serializable {
         getAlumnoes().remove(alumno);
     }
 
+    @Override
+    public String toString() {
+        return "Asignatura{" + "alias=" + alias + ", nombre=" + nombre + ", curso=" + curso + "}";
+    }
+    
+    
 }
